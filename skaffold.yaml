@@ -1,8 +1,10 @@
 apiVersion: skaffold/v4beta9
 kind: Config
 build:
+  googleCloudBuild: 
+    projectId: bonvoyage-416308
   artifacts:
-    - image: mrhawker/bonvoyage.auth
+    - image: us.gcr.io/bonvoyage-416308/auth
       context: auth
       sync:
         manual:
@@ -10,8 +12,6 @@ build:
             dest: .
       docker:
         dockerfile: Dockerfile
-  local:
-    push: true
 manifests:
   rawYaml:
     - ./infra/k8s/*
