@@ -2,8 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-path:hover{
+path:hover {
     fill: aquamarine;
+    cursor: pointer;
+}
+#plane:hover {
+    fill: yellow;
+    cursor:default;
 }
 g:hover{
     fill:aquamarine
