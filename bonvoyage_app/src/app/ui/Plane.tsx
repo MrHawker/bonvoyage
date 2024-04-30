@@ -16,8 +16,10 @@ const Plane = () =>{
         const startX = b1.x + b1.width/2
         const startY = b1.y + b1.height/2 
         const endX = b2.x + b2.width/2
-        const endY = b2.y + b2.height/2 
-        const newpath = `M ${startX},${startY} A 350 455 0 0 1 ${endX},${endY}`
+        const endY = b2.y + b2.height/2
+        const ry = Math.sqrt((startX-endX)*(startX-endX) + (startY-endY)*(startY-endY)) *2
+        const rx = ry/2 
+        const newpath = `M ${startX},${startY} A ${rx} ${ry} 0 0 1 ${endX},${endY}`
         path?.setAttributeNS(null,"d",newpath)
         const motionPath = document.getElementById("planepath")
         motionPath?.setAttributeNS(null,"from",`0,${reference.current.getTotalLength()}`)
@@ -38,7 +40,9 @@ const Plane = () =>{
             const b1 = src.getBBox()
             const endX = b1.x + b1.width/2
             const endY = b1.y + b1.height/2 
-            const newpath = `M ${lastVisited.current.x},${lastVisited.current.y} A 350 455 0 0 1 ${endX},${endY}`
+            const ry = Math.sqrt((lastVisited.current.x-endX)*(lastVisited.current.x-endX) + (lastVisited.current.y-endY)*(lastVisited.current.y-endY)) *2
+            const rx = ry/2 
+            const newpath = `M ${lastVisited.current.x},${lastVisited.current.y} A ${rx} ${ry} 0 0 1 ${endX},${endY}`
             path?.setAttributeNS(null,"d",newpath)
             const animate = document.getElementById("planepath")
             animate?.setAttributeNS(null,"from",`0,${reference.current.getTotalLength()}`)
@@ -70,8 +74,8 @@ const Plane = () =>{
             stroke="grey" fill="none" mask="url(#mask)"/>
         <path id="plane"
             fill="yellow" stroke="black" strokeWidth="3">
-            <animateMotion id="anim" rotate="auto" begin="0;anim.end" dur="3s" fill="freeze" >
-                <mpath xlinkHref="#basePath" />
+            <animateMotion id="anim" rotate="auto" begin="0;planepath.end" dur="3s" fill="freeze" >
+                <mpath xlinkHref="#basePath" fill="freeze" />
             </animateMotion>
         </path>
     </>

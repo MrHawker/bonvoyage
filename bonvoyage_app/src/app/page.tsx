@@ -5,7 +5,7 @@ import styles from 'react-awesome-button/src/styles/themes/theme-bruce';
 import Map from './ui/Map';
 const Page = () =>{
     
-    return <div className='flex justify-start items-start h-screen w-screen bg-gradient-to-br from-yellow-300 via-green-500 to-green-700 '>
+    return <div className='flex justify-start items-start h-screen bg-gradient-to-br from-yellow-300 via-green-500 to-green-700 '>
         <div className="grid grid-flow-row grid-rows-6 w-1/3 
         h-screen rounded-md justify-center
         ">
