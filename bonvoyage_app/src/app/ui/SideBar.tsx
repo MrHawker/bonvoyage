@@ -5,7 +5,8 @@ import {
     UserCircleIcon,
     ArrowLeftEndOnRectangleIcon,
     MinusIcon,
-    PlusIcon
+    PlusIcon,
+    ChatBubbleBottomCenterIcon
   } from '@heroicons/react/24/outline';
 
 const links = [
@@ -23,6 +24,11 @@ const links = [
         name:'Profile',
         href:'/plan/profile',
         icon:UserCircleIcon
+    },
+    {
+        name:'Chat(Upcoming)',
+        href:'/plan/chats',
+        icon:ChatBubbleBottomCenterIcon
     }
 ]
 import Link from 'next/link';
@@ -31,7 +37,6 @@ import { useState,useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 const SideBar = () =>{
         const pathname = usePathname()
-        console.log(pathname)
         const [expanded,setExpanded] = useState(true)
         useEffect(() => {
             const setSideBar = () => {
@@ -78,7 +83,7 @@ const SideBar = () =>{
                             >
                             {
                                 expanded ? 
-                                <div className='flex justify-center items-center'>
+                                <div className='flex '>
                                     <link.icon className='w-8'/>
                                     <p className='pl-6'>{link.name}</p>
                                 </div>
