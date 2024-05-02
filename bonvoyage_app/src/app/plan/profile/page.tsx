@@ -66,11 +66,11 @@ const Page = () =>{
     return <div className="w-full h-screen flex flex-col relative">
         <div className=" md:h-52 w-full" style={{backgroundImage: `url('/forest.jpg')`, backgroundSize: isSmall ? 'cover ' : 'contain', backgroundPosition: 'center'}}>
         </div>
-        <div className='md:flex absolute rounded-full md:w-36 md:h-36 w-16 h-16  bg-white' style={{top: !isSmall ? '130px' : '175px', left:'10px'}}>
+        <div className=' hidden md:flex absolute rounded-full md:w-36 md:h-36 w-16 h-16  bg-white' style={{top: !isSmall ? '130px' : '175px', left:'10px'}}>
             <UserCircleIcon />
         </div>
-        <div className='grow bg-cyan-50 pt-20 pb-4'>
-            <form className='flex  px-6 mx-8  bg-white grow h-full border-slate-500 border-2 rounded-md shadow-2xl ' onSubmit={(e)=>{e.preventDefault()}}>
+        <div className='grow bg-cyan-50 md:pt-20 pt-10 pb-4'>
+            <form className='md:flex px-6 mx-8  bg-white grow h-full border-slate-500 border-2 rounded-md shadow-2xl ' onSubmit={(e)=>{e.preventDefault()}}>
                 <div className='grow'>
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mt-6 mb-12">
                         Your profile
@@ -88,13 +88,13 @@ const Page = () =>{
                     className='mb-2'
                     >Update</AwesomeButton>
                 </div>
-                <div className='hidden md:flex flex-col md:w-1/3 '>
-                    <div className='hidden md:flex flex-wrap  mr-4 ml-8 mt-4 mb-0 rounded-lg h-fit pt-4'>
+                <div className='md:flex flex-col md:w-1/3 '>
+                    <div className='flex flex-wrap mr-4 ml-8 mt-4 mb-0 rounded-lg h-fit pt-4 shrik'>
                         {
                             interests.map(interest =>{
-                                return <div key={interest.name} className=' mr-2 flex border-1 rounded-xl bg-gray-400 h-6 justify-center items-center px-4 my-2 hover:bg-opacity-40 transition-all duration-500 hover:cursor-pointer'>
-                                    <interest.icon className='w-4'/>
-                                    <p className=' font-semibold ml-2 '>{interest.name}</p>
+                                return <div key={interest.name} className=' shrink mr-2 flex border-1 rounded-xl bg-gray-400 h-6 justify-center items-center px-4 my-2 hover:bg-opacity-40 transition-all duration-500 hover:cursor-pointer'>
+                                    <interest.icon className='w-4 shrink'/>
+                                    <p className=' font-semibold ml-2 shrink '>{interest.name}</p>
                                 </div>
                             })
                         }

@@ -40,7 +40,7 @@ const SideBar = () =>{
         const [expanded,setExpanded] = useState(true)
         useEffect(() => {
             const setSideBar = () => {
-                if (window.innerWidth <= 640) { 
+                if (window.innerWidth <= 768) { 
                     setExpanded(false); 
                 }else{
                     setExpanded(true)
@@ -52,18 +52,19 @@ const SideBar = () =>{
                 window.removeEventListener('resize', setSideBar);
             } 
         }, []);
-        return <div className={`flex flex-col rounded-md h-screen w-20 px-2 py-3 bg-slate-900  ${expanded && 'w-72 px-4 py-6' } transition-all duration-300`}>
-            <div className={`flex text-white mt-4 justify-center items-center transition-all duration-300`}>
-                { 
-                    expanded && <GlobeAsiaAustraliaIcon className='w-12 fill-green-500 '/>
-                }
+        return <div className={`flex flex-col rounded-md md:h-screen px-2 py-3 bg-slate-900   ${expanded ? 'w-72 px-4 py-6' : 'md:w-20 sm:w-full ' } transition-all duration-300`}>
+            <div className={`hidden md:flex text-white mt-4 justify-center items-center `}>
                 {expanded &&
-                    <div className='flex flex-col pr-16'>
-                    <p className='text-xl font-semibold'>Bonvoyage!</p>
-                    <p className=' text-base '>Username</p>
+                    <div className='flex'>
+                        <GlobeAsiaAustraliaIcon className='w-12 fill-green-500 '/>
+                        <div className='flex flex-col pr-16'>
+                        <p className='text-xl font-semibold'>Bonvoyage!</p>
+                        <p className=' text-base '>Username</p>
+                        </div>
                     </div>
+                    
                 }
-                <div className={`flex flex-col justify-center items-center ${!expanded && 'mt-4'}`} onClick={()=>setExpanded(!expanded)}>
+                <div className={` hidden md:flex flex-col justify-center items-center ${!expanded && 'mt-4'}`} onClick={()=>setExpanded(!expanded)}>
                     {
                         !expanded ? <PlusIcon className='w-10 text-slate-300 border-slate-500 border-2 rounded-lg'/>
                         :  
@@ -71,42 +72,44 @@ const SideBar = () =>{
                     }
                 </div>
             </div>
-            <div className='h-20 md:block'></div>
-            {
-                links.map(link=>{
-                    return <Link key={link.name} 
-                                href={link.href}
-                                className={`rounded-md bg-slate-700 w-full text-white text-xl 
-                                font-semibold flex py-2 my-1 hover:bg-green-300 
-                                ${pathname === link.href && "bg-green-300"}
-                                ${!expanded && "justify-center items-center"}`}
-                            >
+            <div className='hidden h-20 md:block'></div>
+            <div className='flex md:flex-col md:h-screen'>
+                {
+                    links.map(link=>{
+                        return <Link key={link.name} 
+                                    href={link.href}
+                                    className={`rounded-md w-full text-white text-xl 
+                                    font-semibold flex md:py-2 py-1 my-1  md:mx-0 hover:bg-green-300 
+                                    ${pathname === link.href ? "bg-green-300":""}
+                                    ${!expanded && "justify-center items-center"}`}
+                                >
+                                {
+                                    expanded ? 
+                                    <div className='flex '>
+                                        <link.icon className='w-8'/>
+                                        <p className='pl-6'>{link.name}</p>
+                                    </div>
+
+                                    : <link.icon className='w-8'/>
+                                }
+                        </Link>
+                    })
+                }
+                <Link key='SignOut'
+                    href='http://localhost:4000'
+                    className={`mt-auto  md:mx-0 rounded-md  w-full text-white text-xl font-semibold flex md:py-2 py-1 my-1 hover:bg-green-300 ${!expanded && "justify-center items-center"}`}
+                        >
                             {
                                 expanded ? 
-                                <div className='flex '>
-                                    <link.icon className='w-8'/>
-                                    <p className='pl-6'>{link.name}</p>
+                                <div className='flex justify-center items-center'>
+                                    <ArrowLeftEndOnRectangleIcon className='w-8'/>
+                                    <p className='pl-6'>Sign Out</p>
                                 </div>
                                 
-                                : <link.icon className='w-8'/>
+                                : <ArrowLeftEndOnRectangleIcon className='w-8'/>
                             }
-                    </Link>
-                })
-            }
-            <Link key='SignOut'
-            href='http://localhost:4000'
-            className={` mt-auto rounded-md bg-slate-700 w-full text-white text-xl font-semibold flex py-2 my-1 hover:bg-green-300 ${!expanded && "justify-center items-center"}`}
-                >
-                    {
-                        expanded ? 
-                        <div className='flex justify-center items-center'>
-                            <ArrowLeftEndOnRectangleIcon className='w-8'/>
-                            <p className='pl-6'>Sign Out</p>
-                        </div>
-                        
-                        : <ArrowLeftEndOnRectangleIcon className='w-8'/>
-                    }
-            </Link>
+                </Link>
+            </div>
         </div>
     }
     export default SideBar

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-path:hover {
+#MAP > path:hover {
     fill: aquamarine;
     cursor: pointer;
 }
