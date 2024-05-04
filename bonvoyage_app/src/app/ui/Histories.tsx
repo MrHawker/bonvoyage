@@ -1,5 +1,5 @@
 import Records from "./Records"
-import history_record from '@/app/lib/DataType';
+import {history_record} from '@/app/lib/DataType';
 const t1 : history_record ={
     date:"14-02-2004",
     destination:"market",

@@ -33,14 +33,19 @@ const links = [
 ]
 import Link from 'next/link';
 import '../globals.css'
-import { useState,useEffect } from 'react';
+import { useState,useEffect} from 'react';
 import { usePathname } from 'next/navigation';
 const SideBar = () =>{
+        const[window_size,setWindowSize] = useState(0)
         const pathname = usePathname()
         const [expanded,setExpanded] = useState(true)
         useEffect(() => {
             const setSideBar = () => {
-                if (window.innerWidth <= 768) { 
+                setWindowSize(window.innerWidth)
+                if(pathname === '/plan/explore'){
+                    setExpanded(false)
+                }
+                else if (window.innerWidth <= 768) { 
                     setExpanded(false); 
                 }else{
                     setExpanded(true)
@@ -52,19 +57,81 @@ const SideBar = () =>{
                 window.removeEventListener('resize', setSideBar);
             } 
         }, []);
-        return <div className={`flex flex-col rounded-md md:h-screen px-2 py-3 bg-slate-900   ${expanded ? 'w-72 px-4 py-6' : 'md:w-20 sm:w-full ' } transition-all duration-300`}>
+        if(pathname === '/plan/explore'){
+            return <div className={` z-10 absolute flex flex-col text-white md:px-4 md:py-6 px-2 py-3 rounded-t-md  ${expanded ? 'md:h-screen' : 'md:h-28'} md:w-96 w-full  bg-slate-900 transition-all duration-300 `}>
+                <div className='hidden md:flex w-full h-fit md:mt-4 '>
+                    <GlobeAsiaAustraliaIcon className='w-12 fill-green-500'/>
+                        <div className='flex flex-col'>
+                            <p className='text-xl font-semibold'>Bonvoyage!</p>
+                            <p className=' text-base '>Username</p>
+                    </div>
+                    <div className={` hidden ml-auto md:flex md:flex-col justify-center`} onClick={()=>setExpanded(!expanded)}>
+                        {
+                            !expanded ? <PlusIcon className='w-10 h-10 text-slate-300 border-slate-500 border-2 rounded-lg'/>
+                            :  
+                            <MinusIcon className='w-10 h-10 text-slate-300 border-slate-500 border-2 rounded-lg'/>
+                        }
+                    </div>
+                </div>
+                {
+                    expanded && <div className='hidden h-20 md:block'></div>
+                }
+                {
+                    (expanded || window_size<=768 ) && 
+                    <div className='flex md:flex-col md:h-screen'>
+                    {
+                        links.map(link=>{
+                            return <Link key={link.name} 
+                                        href={link.href}
+                                        className={`rounded-md w-full text-white text-xl 
+                                        font-semibold flex md:py-2 py-1 my-1  md:mx-0 hover:bg-green-300 
+                                        ${pathname === link.href ? "bg-green-300":""}
+                                        ${!expanded && "justify-center items-center"}`}
+                                    >
+                                    {
+                                        (expanded && window_size>768) ? 
+                                        <div className='flex '>
+                                            <link.icon className='w-8'/>
+                                            <p className='pl-6'>{link.name}</p>
+                                        </div>
+    
+                                        : <link.icon className='w-8'/>
+                                    }
+                            </Link>
+                        })
+                    }
+                    <Link key='SignOut'
+                        href='http://localhost:4000'
+                        className={`mt-auto  md:mx-0 rounded-md  w-full text-white text-xl font-semibold flex md:py-2 py-1 my-1 hover:bg-green-300 ${!expanded && "justify-center items-center"}`}
+                            >
+                                {
+                                    expanded ? 
+                                    <div className='flex justify-center items-center'>
+                                        <ArrowLeftEndOnRectangleIcon className='w-8'/>
+                                        <p className='pl-6'>Sign Out</p>
+                                    </div>
+                                    
+                                    : <ArrowLeftEndOnRectangleIcon className='w-8'/>
+                                }
+                    </Link>
+                </div>
+                }
+                
+            </div>
+        }
+        return <div className={` flex flex-col rounded-md md:h-screen px-2 py-3 bg-slate-900   ${expanded ? 'w-72 px-4 py-6' : 'md:w-20 sm:w-full ' } transition-all duration-300`}>
             <div className={`hidden md:flex text-white mt-4 justify-center items-center `}>
                 {expanded &&
-                    <div className='flex'>
+                    <div className='flex w-full h-fit'>
                         <GlobeAsiaAustraliaIcon className='w-12 fill-green-500 '/>
-                        <div className='flex flex-col pr-16'>
+                        <div className='flex flex-col '>
                         <p className='text-xl font-semibold'>Bonvoyage!</p>
                         <p className=' text-base '>Username</p>
                         </div>
                     </div>
                     
                 }
-                <div className={` hidden md:flex flex-col justify-center items-center ${!expanded && 'mt-4'}`} onClick={()=>setExpanded(!expanded)}>
+                <div className={` ${expanded && "ml-auto"}  hidden md:flex flex-col justify-center items-center ${!expanded && 'mt-4'}`} onClick={()=>setExpanded(!expanded)}>
                     {
                         !expanded ? <PlusIcon className='w-10 text-slate-300 border-slate-500 border-2 rounded-lg'/>
                         :  

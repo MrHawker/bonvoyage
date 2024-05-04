@@ -1,7 +1,11 @@
-interface history_record {
+import { IconType } from "react-icons";
+export interface history_record {
     date: string;
     destination: string;
     city: string;
     type: string;
 }
-export default history_record
+export interface place_types{
+    name:string,
+    selected:boolean
+}

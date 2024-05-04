@@ -11,9 +11,11 @@ const Page = ({searchParams}: {searchParams: {query:string,page: string}}) =>{
             <h1 className=' text-3xl font-bold pt-6 pl-6 w-fit'>
                 Your History
             </h1>
-            <SearchBar/>
+            <div className='mt-8 px-4'>
+                <SearchBar placeholder='Search History'/>
+            </div>
             <div className="block h-10"></div>
-            <Histories query={query} currentPage={currentPage}/>
+                <Histories query={query} currentPage={currentPage}/>
             <PageNav num={7}/>
         </div>
         

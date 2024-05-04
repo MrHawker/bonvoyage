@@ -1,6 +1,6 @@
 'use client'
 import { BiDotsVerticalRounded } from "react-icons/bi"
-import history_record from "../lib/DataType"
+import {history_record} from "../lib/DataType"
 import { useState } from "react"
 
 const Record = ({record}:{record:history_record})=>{
@@ -37,7 +37,7 @@ const Record = ({record}:{record:history_record})=>{
                  className="h-8 w-8 rounded-full hover:bg-slate-300 transition duration-300 px-1 py-1"/>
                 </div>
                 {
-                    displayAction && <div onMouseLeave={()=>setdisplayAction(false)} className=" rounded-md bg-slate-200 " style={{position:'absolute', top:location.y-15,left:location.x-30}}>
+                    displayAction && <div onMouseLeave={()=>setdisplayAction(false)} className=" rounded-md bg-slate-200  " style={{position:'absolute', top:location.y-15,left:location.x-30}}>
                         <p className=" text-red-600 px-4 py-2  hover:bg-slate-400 transition duration-300">Delete</p>
                         <p className="px-4 py-2 hover:bg-slate-400 transition duration-300">Copy link</p>
                     </div>
