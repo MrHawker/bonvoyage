@@ -58,8 +58,8 @@ const SideBar = () =>{
             } 
         }, []);
         if(pathname === '/plan/explore'){
-            return <div className={` z-10 absolute flex flex-col text-white md:px-4 md:py-6 px-2 py-3 rounded-t-md  ${expanded ? 'md:h-screen' : 'md:h-28'} md:w-96 w-full  bg-slate-900 transition-all duration-300 `}>
-                <div className='hidden md:flex w-full h-fit md:mt-4 '>
+            return <div className={` z-50 absolute flex flex-col text-white md:px-4 md:py-6 px-2 py-3 rounded-t-md  ${expanded ? 'md:h-screen' : 'md:h-28'} md:w-96 w-full  bg-slate-900 transition-all duration-300 `}>
+                <div className='hidden md:flex w-full h-fit md:mt-4  '>
                     <GlobeAsiaAustraliaIcon className='w-12 fill-green-500'/>
                         <div className='flex flex-col'>
                             <p className='text-xl font-semibold'>Bonvoyage!</p>

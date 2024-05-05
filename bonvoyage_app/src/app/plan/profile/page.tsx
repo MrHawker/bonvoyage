@@ -1,10 +1,9 @@
 'use client'
 import '../../globals.css'
 import { UserCircleIcon } from '@heroicons/react/24/solid';
-import { BiRestaurant } from 'react-icons/bi';
+import { BiRestaurant,BiHotel } from 'react-icons/bi';
 import { FaLandmark } from 'react-icons/fa';
 import { MdMuseum } from 'react-icons/md';
-import { BiHotel } from 'react-icons/bi';
 import { GiFishing } from 'react-icons/gi';
 import { useEffect, useState } from 'react';
 import { MdInterests } from 'react-icons/md';
@@ -64,8 +63,9 @@ const Page = () =>{
         setInterests(newArray)
     }
     return <div className="w-full h-screen flex flex-col relative">
-        <div className=" md:h-52 w-full" style={{backgroundImage: `url('/forest.jpg')`, backgroundSize: isSmall ? 'cover ' : 'contain', backgroundPosition: 'center'}}>
-        </div>
+        {!isSmall && <div className=" md:h-52 w-full" style={{backgroundImage: `url('/forest.jpg')`, backgroundSize: isSmall ? 'cover ' : 'contain', backgroundPosition: 'center'}}>
+        </div>}
+        
         <div className=' hidden md:flex absolute rounded-full md:w-36 md:h-36   bg-white' style={{top: !isSmall ? '130px' : '175px', left:'10px'}}>
             <UserCircleIcon />
         </div>

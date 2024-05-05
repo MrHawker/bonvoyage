@@ -1,4 +1,4 @@
-import { IconType } from "react-icons";
+import Image from "next/image";
 export interface history_record {
     date: string;
     destination: string;
@@ -8,4 +8,10 @@ export interface history_record {
 export interface place_types{
     name:string,
     selected:boolean
+}
+export interface place_info{
+    name:string,
+    imgUrl:string,
+    description:string,
+    
 }

@@ -10,6 +10,9 @@ const HorizontalScroller=({places}:{places:Array<place_types>})=>{
     const scroller = useRef<any>();
     const scroll=(offset:number)=>{
         const newscrollStart = scrollStart+offset;
+        if(newscrollStart < 0 || newscrollStart >= scroller.current.scrollWidth - 210){
+            return
+        }
         setscrollStart(newscrollStart)
         scroller.current.scrollLeft = newscrollStart
         
@@ -27,8 +30,8 @@ const HorizontalScroller=({places}:{places:Array<place_types>})=>{
         })
         setState(newState)
     }
-    return <div className="flex w-full">
-        <div className="flex flex-col justify-center items-center  ">
+    return <div className="flex md:w-full md:mt-0 ">
+        <div className="flex flex-col justify-center items-center">
             <IoIosArrowBack onClick={()=>{scroll(-164)}} className=" hover:cursor-pointer w-6 h-6 mr-2 bg-slate-200 rounded-md px-1 py-1 stroke-2 hover:bg-slate-400 transition-all duration-300"/>
         </div>
         <div ref={scroller} className=" py-3 w-full overflow-x-scroll no-scrollbar flex space-x-2 scroll-smooth ">
