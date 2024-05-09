@@ -20,11 +20,12 @@ const Page = () =>{
             window.removeEventListener('resize', setUserIcon);
         } 
     }, []);
-    const updateUserProfile =(e:any)=>{
+    const updateUserProfile = async (e:any)=>{
         e.preventDefault()
         const username = (document.getElementById("username") as HTMLInputElement).value
         const description =(document.getElementById("description") as HTMLInputElement).value
-        UpdateProfile(username,description)
+        await UpdateProfile(username,description)
+        location.replace("http://localhost:3000/plan/profile")
     }
     return <div className="w-full h-screen flex flex-col relative">
         {!isSmall && <div className=" md:h-52 w-full" style={{backgroundImage: `url('/forest.jpg')`, backgroundSize: isSmall ? 'cover ' : 'contain', backgroundPosition: 'center'}}>

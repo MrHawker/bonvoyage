@@ -5,8 +5,8 @@ import { useEffect,useState } from "react";
 import { getProfile } from "../lib/GetUserData";
 const Layout = ({children}:{children:React.ReactNode}) =>{
     const [profile,setProfile] = useState({
-        username:"Anon",
-        description:"I love hiking! Add me when networking feature is available!"
+        username:"Loading...",
+        description:"Loading..."
     })
     useEffect(()=>{
         const setname = async()=>{

@@ -8,8 +8,8 @@ import { getProfile } from '@/app/lib/GetUserData';
 const Page = () =>{
     const [isSmall,setIsSmall] = useState(false)
     const [profile,setProfile] = useState({
-        username:"Anon",
-        description:"I love hiking! Add me when networking feature is available!"
+        username:"Loading...",
+        description:"Loading..."
     })
     useEffect(() => {
         const setUserIcon = () => {
