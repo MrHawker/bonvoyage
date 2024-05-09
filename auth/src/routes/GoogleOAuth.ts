@@ -11,7 +11,7 @@ passport.use(new GoogleStrategy({
     passReqToCallBack:true
   },
   function(request:any, accessToken:any, refreshToken:any, profile:any, cb:any) {
-        addUser(profile.displayName,profile.id);
+        addUser(profile.displayName,profile.id,profile._json.email);
         return cb(null,profile);
   }
 ));
@@ -32,7 +32,7 @@ router.get('/api/users/Welcome',
         failureRedirect: 'http://localhost:4000',
     }),
     function(req, res) {
-        res.redirect('http://localhost:3000');
+        res.redirect('http://localhost:3000/plan/explore');
     }
 )
 export {router as GoogleOAuthRouter};

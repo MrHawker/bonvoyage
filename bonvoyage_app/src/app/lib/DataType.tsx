@@ -1,4 +1,3 @@
-import Image from "next/image";
 export interface history_record {
     date: string;
     destination: string;
