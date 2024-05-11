@@ -12,6 +12,7 @@ router.post('/api/getUserProfile',(req,res)=>{
         email:"JohnDoe@gmail.com"
     }))
 })
+
 router.post('/api/addUserProfile',(req,res)=>{
     if(req.body.username && req.body.googleId && req.body.email){
         addUser(req.body.username,req.body.googleId,req.body.email)

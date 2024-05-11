@@ -33,6 +33,7 @@ app.get('/logout', function(req, res, next){
       res.redirect('http://localhost:3000');
     });
   });
+  
 app.listen(4000,()=>{
     console.log("Authenticator listening on port 4000!!!");
 })

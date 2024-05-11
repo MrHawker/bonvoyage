@@ -1,6 +1,7 @@
 import express from "express";
 import "../routes/mongoDB"
 import { addUser } from "../routes/mongoDB";
+import axios from 'axios'
 require('dotenv').config();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -35,4 +36,5 @@ router.get('/api/users/Welcome',
         res.redirect('http://localhost:3000/plan/explore');
     }
 )
+
 export {router as GoogleOAuthRouter};

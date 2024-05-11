@@ -1,6 +1,5 @@
 'use client'
 import '../../globals.css'
-import { UserCircleIcon } from '@heroicons/react/24/solid';
 import { useEffect, useState } from 'react';
 import { AwesomeButton } from 'react-awesome-button'
 import styles from 'react-awesome-button/src/styles/themes/theme-bruce';
@@ -33,9 +32,6 @@ const Page = () =>{
     return <div className="w-full h-screen flex flex-col relative">
         {!isSmall && <div className=" md:h-52 w-full" style={{backgroundImage: `url('/forest.jpg')`, backgroundSize: isSmall ? 'cover ' : 'contain', backgroundPosition: 'center'}}>
         </div>}
-        {/* <div className=' hidden md:flex absolute rounded-full md:w-36 md:h-36   bg-white' style={{top: !isSmall ? '130px' : '175px', left:'10px'}}>
-            <UserCircleIcon />
-        </div> */}
         <div className='grow bg-cyan-50 pt-10 pb-4'>
             <form className='md:flex px-6 mx-8 bg-white grow h-full border-slate-500 border-2 rounded-md shadow-2xl ' onSubmit={(e)=>{e.preventDefault()}}>
                 <div className='grow flex flex-col '>

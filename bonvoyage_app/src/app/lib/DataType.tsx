@@ -12,5 +12,10 @@ export interface place_info{
     name:string,
     imgUrl:string,
     description:string,
+}
+export interface googleMapSuggestion{
     
+    place_id:string,
+    name:string,
+    address:string
 }
