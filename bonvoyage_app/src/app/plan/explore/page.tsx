@@ -1,5 +1,8 @@
 'use client'
 import SearchBar from "@/app/ui/SearchBar";
+import { BiRestaurant,BiHotel,BiStore } from "react-icons/bi"
+import { BsBank } from "react-icons/bs";
+import { IoCafe } from "react-icons/io5";
 import { place_types } from "@/app/lib/DataType";
 import HorizontalScroller from "@/app/ui/HorizontalScroller";
 import { IoIosArrowDropupCircle,IoIosArrowDropdownCircle } from "react-icons/io";
@@ -7,26 +10,63 @@ import { useState,useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import GoogleMap from "@/app/ui/GoogleMap";
 import initMap from "@/app/lib/initMap";
+import Cards from "@/app/ui/Cards";
 import {getAutoCompleteSuggestions,getNearbyPointOfInterest} from "@/app/lib/getAutoCompleteSuggestions";
 import AutoCompleteCards from "@/app/ui/AutoCompleteCards";
 const place1 : place_types = {
-    name:"restaurant",
-    selected:false,
+    name:"Restaurants",
+    selected:true,
 }
 const place2 : place_types = {
-    name:"restaurant",
+    name:"Cafes",
+    selected:true,
+}
+const place3 : place_types = {
+    name:"Stores",
+    selected:true,
+}
+const place4 : place_types = {
+    name:"Lodgings",
+    selected:true,
+}
+const place5 : place_types = {
+    name:"Banks",
     selected:true,
 }
 const places : place_types[] = [
-    place1,place2,place1,place1,place1
+    place1,place2,place3,place4,place5
 ]
 const Page = () =>{
     const [expanded,setExpanded] = useState(false)
     const [height, setHeight] = useState(0);
     const [width, setWidth] = useState(0);
     const [position,setPosition] = useState({lat: 16, lng: 108})
+    const [destination,setDestination] = useState("");
+    const [interests,setInterests] = useState({
+        restaurants: [],
+        cafes:[],
+        convenience_stores:[],
+        lodgings:[],
+        banks:[]
+    });
     const params = useSearchParams()
     const [suggestions,setSuggestions]=useState<any>([])
+    const getInterest = async() =>{
+        const [restaurants, cafes, convenience_stores, lodgings, banks] = await Promise.all([
+            getNearbyPointOfInterest(position.lat, position.lng, "restaurant"),
+            getNearbyPointOfInterest(position.lat, position.lng, "cafe"),
+            getNearbyPointOfInterest(position.lat, position.lng, "convenience_store"),
+            getNearbyPointOfInterest(position.lat, position.lng, "lodging"),
+            getNearbyPointOfInterest(position.lat, position.lng, "bank")
+        ]);
+        setInterests({
+            restaurants:restaurants,
+            cafes:cafes,
+            convenience_stores:convenience_stores,
+            lodgings:lodgings,
+            banks:banks
+        })
+    }
     useEffect(() => {
         const resize = () => {
             setHeight(window.innerHeight);
@@ -53,7 +93,7 @@ const Page = () =>{
         set()
     },[params])
     useEffect(()=>{
-        getNearbyPointOfInterest(position.lat,position.lng,"restaurant")
+        getInterest();
     },[position])
     const currClick =()=>{
         const useCurrentLocationPropmt = document.getElementById("CurrentLocationPrompt")
@@ -84,7 +124,7 @@ const Page = () =>{
                         <AutoCompleteCards setPosition={setPosition} suggestions={suggestions}/>
                     </div>
                     <div className="hidden md:block h-full absolute w-full">
-                        <GoogleMap position={position}></GoogleMap>
+                        <GoogleMap destination={destination} position={position}></GoogleMap>
                     </div>
                 </div>
                 :
@@ -99,7 +139,7 @@ const Page = () =>{
                         <AutoCompleteCards setPosition={setPosition} suggestions={suggestions}/>
                     </div>
                     <div className="hidden md:block h-full absolute w-full">
-                        <GoogleMap position={position}></GoogleMap>
+                        <GoogleMap destination={destination} position={position}></GoogleMap>
                     </div>
                 </div>
             }
@@ -110,23 +150,15 @@ const Page = () =>{
             </div>
             <div className="absolute top-48 w-full block md:hidden" 
             style={{ height: height-192}}> 
-                <GoogleMap position={position}></GoogleMap>
+                <GoogleMap destination={destination} position={position}></GoogleMap>
             </div>
             <div className={`bg-blue-200 py-2 overflow-y-scroll md:h-full z-40 transition-all duration-300 `} 
             style={{ height: (expanded || width >=768) ? height-64 : 192}}>
-                <div className="h-32  bg-red-700 my-2"></div>
-                <div className="h-32  bg-red-700 my-2"></div>
-                <div className="h-32  bg-red-700 my-2"></div>
-                <div className="h-32  bg-red-700 my-2"></div> 
-                <div className="h-32  bg-red-700 my-2"></div>
-                <div className="h-32  bg-red-700 my-2"></div>
-                <div className="h-32  bg-red-700 my-2"></div>
-                <div className="h-32  bg-red-700 my-2"></div>
-                <div className="h-32  bg-red-700 my-2"></div>
-                <div className="h-32  bg-red-700 my-2"></div>
-                <div className="h-32  bg-red-700 my-2"></div>
-                <div className="h-32  bg-red-700 my-2"></div>
-                <div className="h-32  bg-red-700 my-2"></div>
+                <Cards setDestination={setDestination} places={interests.restaurants} type="Restaurants" icon={<BiRestaurant/>}/>
+                <Cards setDestination={setDestination} places={interests.cafes} type="Cafes" icon={<IoCafe/>}/>
+                <Cards setDestination={setDestination} places={interests.convenience_stores} type="Stores" icon={<BiStore/>}/>
+                <Cards setDestination={setDestination} places={interests.lodgings} type="Lodgings" icon={<BiHotel/>}/>
+                <Cards setDestination={setDestination} places={interests.banks} type="Banks" icon={<BsBank/>}/>
             </div>
             <div className={` pointer-events-none w-full  fixed bg-gradient-to-t from-white/30 to-transparent h-20 z-40 transition-all duration-300 `}>
             </div>

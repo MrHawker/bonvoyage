@@ -25,3 +25,6 @@
         scrollbar-width: none;  /* Firefox */
   }
 }
+.placeCard:hover{
+    background-color: #70cee6 !important;
+}

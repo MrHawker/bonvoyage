@@ -8,16 +8,16 @@ router.post('/api/getRecords',(req,res)=>{
     .catch((err)=>{console.log(err); res.send("Could not fetch records")})
 })
 router.post('/api/addRecord',(req,res)=>{
-    const {googleId,destination,city,type,link} = req.body
-    if(googleId && destination && city && type && link){
-        addRecord(googleId,destination,city,type,link)
+    const {googleId,destination,address,type} = req.body
+    if(googleId && destination && address && type){
+        addRecord(googleId,destination,address,type)
         .then(()=>{res.send("Successfully added Record")})
         .catch(()=>{res.status(500).send("Uh oh something went wrong")})
     }else{
         res.status(400).send("Invalid request")
     }
 })
-router.delete('/api/deleteRecord',(req,res)=>{
+router.post('/api/deleteRecord',(req,res)=>{
     const {recordId} = req.body
     if(recordId){
         deleteRecord(recordId)

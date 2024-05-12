@@ -12,7 +12,7 @@ const client = new MongoClient(uri, {
 const connectToMongo = ()=>{
     client.connect().then(()=>console.log("Connected to db")).catch(err=>{console.log(err)})
 }
-const addRecord = async (googleId:String,destination:String,city:String,type:String,link:String)=>{
+const addRecord = async (googleId:String,destination:String,address:String,type:String)=>{
     const db = client.db("bonvoyage")
     const collection = db.collection("map")
     const date = new Date()
@@ -20,9 +20,8 @@ const addRecord = async (googleId:String,destination:String,city:String,type:Str
         googleId:googleId,
         date:date,
         destination:destination,
-        city:city,
+        address:address,
         type:type,
-        link:link
     })
     await collection.insertOne(record)
         
@@ -34,7 +33,7 @@ const getRecords = async(googleId:String)=>{
     const readable_records = records.map(e=>{
         return {
             ...e,
-            date:e.date.toString()
+            date:e.date.toISOString().split('T')[0]
         }
     })
     return readable_records

@@ -1,7 +1,8 @@
 export interface history_record {
+    _id:string,
     date: string;
     destination: string;
-    city: string;
+    address: string;
     type: string;
 }
 export interface place_types{
@@ -9,12 +10,14 @@ export interface place_types{
     selected:boolean
 }
 export interface place_info{
-    name:string,
-    imgUrl:string,
-    description:string,
+    location:any,
+    name:any,
+    opening_hours:any,
+    price_level:any,
+    rating:any,
+    vicinity:string,
 }
 export interface googleMapSuggestion{
-    
     place_id:string,
     name:string,
     address:string

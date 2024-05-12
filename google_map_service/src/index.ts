@@ -35,8 +35,12 @@ app.post('/api/getPointOfInterests',async(req,res)=>{
     const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1500&type=${type}&key=${process.env['GOOGLE_MAP_API_KEY']}`
     const result = await axios.get(url)
     const places = []
+    result.data.results.sort((e1:any,e2:any)=>e2.rating-e1.rating);
     for (let index = 0; index < result.data.results.length; index++) {
         const element = result.data.results[index];
+        if(places.length >= 6){
+            break;
+        }
         if(element.business_status === "OPERATIONAL"){
             places.push({
                 location:element.geometry.location,

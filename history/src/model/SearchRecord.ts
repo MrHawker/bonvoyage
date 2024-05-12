@@ -14,7 +14,7 @@ const SearchRecord  = new Schema({
         type:String,
         require:true
     },
-    city: {
+    address:{
         type:String,
         require:true
     },
@@ -22,10 +22,6 @@ const SearchRecord  = new Schema({
         type:String,
         require:true
     },
-    link: {
-        type:String,
-        require:true
-    }
     
 });
 module.exports = mongoose.model('SearchRecord',SearchRecord);
